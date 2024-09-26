@@ -1,18 +1,30 @@
-const columnDefs = [
-    { headerName: 'Retention Rule ID', field: 'retentionRuleId' },
+const englishColumnDefs = [
+    { headerName: 'Id', field: 'retentionRuleId' },
     { headerName: 'Version', field: 'retentionRuleVersion' },
-    { headerName: 'BUSD Code', field: 'busuCode' },
-    { headerName: 'Label (EN)', field: 'label' },
-    { headerName: 'Entity Label', field: 'entityLabel' },
-    { headerName: 'Entity Country Code', field: 'entityCountryCode' },
-    { headerName: 'Record Serie (EN)', field: 'recordSerieLabelEn' },
-    { headerName: 'Record Serie (FR)', field: 'recordSerieLabelFr' },
-    { headerName: 'Macro Process Code', field: 'macroProcessCode' },
-    { headerName: 'Process/Activity (EN)', field: 'processAndActivityLabelEn' },
-    { headerName: 'Process/Activity (FR)', field: 'processAndActivityLabelFr' },
-    { headerName: 'Label EN', field: 'labelEn' },
-    { headerName: 'Label FR', field: 'labelFr' },
-    { headerName: 'Status Code', field: 'statusCode' },
-    { headerName: 'Sharing Level Status (EN)', field: 'sharingLevelStatusEn' },
-    { headerName: 'Sharing Level Status (FR)', field: 'sharingLevelStatusFr' },
+    { headerName: 'BUSU', field: 'label' },
+    { headerName: 'Country', field: 'entityCountryCode' },
+    { headerName: 'Legal Entity', field: 'entityLabel' },
+    { headerName: 'Macro Process', field: 'processAndActivityLabelEn' },
+    { headerName: 'Record Series Label', field: 'recordSerieLabelEn' },
+    { headerName: 'Sharing Level', field: 'sharingLevelStatusEn' },
+    { headerName: 'Status', field: 'labelEn' },
 ];
+
+const frenchColumnDefs = [
+    { headerName: 'Id', field: 'retentionRuleId' },
+    { headerName: 'Version', field: 'retentionRuleVersion' },
+    { headerName: 'BUSU', field: 'label' },
+    { headerName: 'Pays', field: 'entityCountryCode' },
+    { headerName: 'Entité légale', field: 'entityLabel' },
+    { headerName: 'Macro Processus', field: 'processAndActivityLabelFr' },
+    { headerName: 'Libellé de la famille de records', field: 'recordSerieLabelFr' },
+    { headerName: 'Portée', field: 'sharingLevelStatusFr' },
+    { headerName: 'Statut', field: 'labelFr' },
+];
+
+
+if (this.currentLang === 'en') {
+        this.columnDefs = englishColumnDefs;
+    } else {
+        this.columnDefs = frenchColumnDefs;
+    }
