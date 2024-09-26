@@ -1,30 +1,70 @@
-const englishColumnDefs = [
-    { headerName: 'Id', field: 'retentionRuleId' },
-    { headerName: 'Version', field: 'retentionRuleVersion' },
-    { headerName: 'BUSU', field: 'label' },
-    { headerName: 'Country', field: 'entityCountryCode' },
-    { headerName: 'Legal Entity', field: 'entityLabel' },
-    { headerName: 'Macro Process', field: 'processAndActivityLabelEn' },
-    { headerName: 'Record Series Label', field: 'recordSerieLabelEn' },
-    { headerName: 'Sharing Level', field: 'sharingLevelStatusEn' },
-    { headerName: 'Status', field: 'labelEn' },
-];
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 
-const frenchColumnDefs = [
-    { headerName: 'Id', field: 'retentionRuleId' },
-    { headerName: 'Version', field: 'retentionRuleVersion' },
-    { headerName: 'BUSU', field: 'label' },
-    { headerName: 'Pays', field: 'entityCountryCode' },
-    { headerName: 'Entité légale', field: 'entityLabel' },
-    { headerName: 'Macro Processus', field: 'processAndActivityLabelFr' },
-    { headerName: 'Libellé de la famille de records', field: 'recordSerieLabelFr' },
-    { headerName: 'Portée', field: 'sharingLevelStatusFr' },
-    { headerName: 'Statut', field: 'labelFr' },
-];
+@Component({
+    selector: 'app-retention-rule-list',
+    templateUrl: './retention-rule-list.component.html',
+    styleUrls: ['./retention-rule-list.component.css']
+})
+export class RetentionRuleListComponent implements OnInit, OnChanges {
+    @Input() currentLang: string = 'en'; // Assume this is set from a parent component
+    columnDefs: any[];
+    rowData: Retention[] = [];
+    totalElements: number;
+    loading: boolean = true;
+    validationMsg: any;
+    gridApi: any;
 
+    constructor(private retentionRuleService: RetentionRuleService) {}
 
-if (this.currentLang === 'en') {
-        this.columnDefs = englishColumnDefs;
-    } else {
-        this.columnDefs = frenchColumnDefs;
+    ngOnInit(): void {
+        this.setColumnDefs(); // Set initial column definitions
+        this.fetchRetentionRule(1); // Initial page number
     }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.currentLang) {
+            this.setColumnDefs(); // Update column definitions when language changes
+            if (this.gridApi) {
+                this.gridApi.setColumnDefs(this.columnDefs); // Refresh the grid if the API is ready
+            }
+        }
+    }
+
+    setColumnDefs(): void {
+        const englishColumnDefs = [
+            { headerName: 'Id', field: 'retentionRuleId' },
+            { headerName: 'Version', field: 'retentionRuleVersion' },
+            { headerName: 'BUSU', field: 'label' },
+            { headerName: 'Country', field: 'entityCountryCode' },
+            { headerName: 'Legal Entity', field: 'entityLabel' },
+            { headerName: 'Macro Process', field: 'processAndActivityLabelEn' },
+            { headerName: 'Record Series Label', field: 'recordSerieLabelEn' },
+            { headerName: 'Sharing Level', field: 'sharingLevelStatusEn' },
+            { headerName: 'Status', field: 'labelEn' },
+        ];
+
+        const frenchColumnDefs = [
+            { headerName: 'Id', field: 'retentionRuleId' },
+            { headerName: 'Version', field: 'retentionRuleVersion' },
+            { headerName: 'BUSU', field: 'label' },
+            { headerName: 'Pays', field: 'entityCountryCode' },
+            { headerName: 'Entité légale', field: 'entityLabel' },
+            { headerName: 'Macro Processus', field: 'processAndActivityLabelFr' },
+            { headerName: 'Libellé de la famille de records', field: 'recordSerieLabelFr' },
+            { headerName: 'Portée', field: 'sharingLevelStatusFr' },
+            { headerName: 'Statut', field: 'labelFr' },
+        ];
+
+        // Assign columnDefs based on current language
+        this.columnDefs = this.currentLang === 'en' ? englishColumnDefs : frenchColumnDefs;
+    }
+
+    onGridReady(params: any): void {
+        this.gridApi = params.api;
+        this.gridApi.setColumnDefs(this.columnDefs); // Set initial column definitions
+    }
+
+    public fetchRetentionRule(pageNumber: number): void {
+        // Fetch logic here
+    }
+}
