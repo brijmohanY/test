@@ -1,0 +1,18 @@
+const columnDefs = [
+    { headerName: 'Retention Rule ID', field: 'retentionRuleId' },
+    { headerName: 'Version', field: 'retentionRuleVersion' },
+    { headerName: 'BUSD Code', field: 'busuCode' },
+    { headerName: 'Label (EN)', field: 'label' },
+    { headerName: 'Entity Label', field: 'entityLabel' },
+    { headerName: 'Entity Country Code', field: 'entityCountryCode' },
+    { headerName: 'Record Serie (EN)', field: 'recordSerieLabelEn' },
+    { headerName: 'Record Serie (FR)', field: 'recordSerieLabelFr' },
+    { headerName: 'Macro Process Code', field: 'macroProcessCode' },
+    { headerName: 'Process/Activity (EN)', field: 'processAndActivityLabelEn' },
+    { headerName: 'Process/Activity (FR)', field: 'processAndActivityLabelFr' },
+    { headerName: 'Label EN', field: 'labelEn' },
+    { headerName: 'Label FR', field: 'labelFr' },
+    { headerName: 'Status Code', field: 'statusCode' },
+    { headerName: 'Sharing Level Status (EN)', field: 'sharingLevelStatusEn' },
+    { headerName: 'Sharing Level Status (FR)', field: 'sharingLevelStatusFr' },
+];
