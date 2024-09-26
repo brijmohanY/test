@@ -1,70 +1,78 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+<!-- Column Selector -->
+<div>
+  <label *ngFor="let col of (currentLang === 'en' ? allEnglishColumns : allFrenchColumns)">
+    <input 
+      type="checkbox" 
+      [checked]="!col.hide" 
+      (change)="toggleColumnVisibility(col.field, $event)" />
+    {{ col.headerName }}
+  </label>
+</div>
+
+<!-- AG Grid -->
+<ag-grid-angular
+  style="width: 100%; height: 350px;"
+  class="ag-theme-alpine"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs">
+</ag-grid-angular>
+
+
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-retention-rule-list',
-    templateUrl: './retention-rule-list.component.html',
-    styleUrls: ['./retention-rule-list.component.css']
+  selector: 'app-my-grid',
+  templateUrl: './my-grid.component.html',
+  styleUrls: ['./my-grid.component.css']
 })
-export class RetentionRuleListComponent implements OnInit, OnChanges {
-    @Input() currentLang: string = 'en'; // Assume this is set from a parent component
-    columnDefs: any[];
-    rowData: Retention[] = [];
-    totalElements: number;
-    loading: boolean = true;
-    validationMsg: any;
-    gridApi: any;
+export class MyGridComponent {
 
-    constructor(private retentionRuleService: RetentionRuleService) {}
+  currentLang = 'en';  // This can be dynamically changed based on user language preference
+  columnDefs: any[] = [];
 
-    ngOnInit(): void {
-        this.setColumnDefs(); // Set initial column definitions
-        this.fetchRetentionRule(1); // Initial page number
+  // All columns with hideable functionality
+  allEnglishColumns = [
+    { headerName: 'Id', field: 'retentionRuleId', hide: false },
+    { headerName: 'BUSU', field: 'label', hide: false },
+    { headerName: 'Country', field: 'entityCountryCode', hide: false },
+    { headerName: 'Version', field: 'retentionRuleVersion', hide: false },
+    { headerName: 'Legal Entity', field: 'entityLabel', hide: false },
+    { headerName: 'Macro Process', field: 'processAndActivityLabelEn', hide: false },
+    { headerName: 'Record Series Label', field: 'recordSeriesLabelEn', hide: false },
+    { headerName: 'Status', field: 'labelEn', hide: false },
+    { headerName: 'Sharing Level', field: 'sharingLevelStatusEn', hide: false }
+  ];
+
+  allFrenchColumns = [
+    { headerName: 'Id', field: 'retentionRuleId', hide: false },
+    { headerName: 'Version', field: 'retentionRuleVersion', hide: false },
+    { headerName: 'BUSU', field: 'label', hide: false },
+    { headerName: 'Pays', field: 'entityCountryCode', hide: false },
+    { headerName: 'Entité légale', field: 'entityLabel', hide: false },
+    { headerName: 'Macro Processus', field: 'processAndActivityLabelFr', hide: false },
+    { headerName: 'Libellé de la famille de records', field: 'recordSeriesLabelFr', hide: false },
+    { headerName: 'Portée', field: 'sharingLevelStatusFr', hide: false },
+    { headerName: 'Statut', field: 'labelFr', hide: false }
+  ];
+
+  ngOnInit() {
+    this.setColumnDefs(); // Set the initial column definitions
+  }
+
+  // Set column definitions based on the language selected
+  setColumnDefs(): void {
+    this.columnDefs = this.currentLang === 'en' 
+      ? this.allEnglishColumns.filter(col => !col.hide) 
+      : this.allFrenchColumns.filter(col => !col.hide);
+  }
+
+  // Function to toggle column visibility
+  toggleColumnVisibility(colField: string, event: any) {
+    const allColumns = this.currentLang === 'en' ? this.allEnglishColumns : this.allFrenchColumns;
+    const column = allColumns.find(col => col.field === colField);
+    if (column) {
+      column.hide = !event.target.checked;
+      this.setColumnDefs();  // Update the column definitions after toggling
     }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.currentLang) {
-            this.setColumnDefs(); // Update column definitions when language changes
-            if (this.gridApi) {
-                this.gridApi.setColumnDefs(this.columnDefs); // Refresh the grid if the API is ready
-            }
-        }
-    }
-
-    setColumnDefs(): void {
-        const englishColumnDefs = [
-            { headerName: 'Id', field: 'retentionRuleId' },
-            { headerName: 'Version', field: 'retentionRuleVersion' },
-            { headerName: 'BUSU', field: 'label' },
-            { headerName: 'Country', field: 'entityCountryCode' },
-            { headerName: 'Legal Entity', field: 'entityLabel' },
-            { headerName: 'Macro Process', field: 'processAndActivityLabelEn' },
-            { headerName: 'Record Series Label', field: 'recordSerieLabelEn' },
-            { headerName: 'Sharing Level', field: 'sharingLevelStatusEn' },
-            { headerName: 'Status', field: 'labelEn' },
-        ];
-
-        const frenchColumnDefs = [
-            { headerName: 'Id', field: 'retentionRuleId' },
-            { headerName: 'Version', field: 'retentionRuleVersion' },
-            { headerName: 'BUSU', field: 'label' },
-            { headerName: 'Pays', field: 'entityCountryCode' },
-            { headerName: 'Entité légale', field: 'entityLabel' },
-            { headerName: 'Macro Processus', field: 'processAndActivityLabelFr' },
-            { headerName: 'Libellé de la famille de records', field: 'recordSerieLabelFr' },
-            { headerName: 'Portée', field: 'sharingLevelStatusFr' },
-            { headerName: 'Statut', field: 'labelFr' },
-        ];
-
-        // Assign columnDefs based on current language
-        this.columnDefs = this.currentLang === 'en' ? englishColumnDefs : frenchColumnDefs;
-    }
-
-    onGridReady(params: any): void {
-        this.gridApi = params.api;
-        this.gridApi.setColumnDefs(this.columnDefs); // Set initial column definitions
-    }
-
-    public fetchRetentionRule(pageNumber: number): void {
-        // Fetch logic here
-    }
+  }
 }
