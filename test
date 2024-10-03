@@ -1,9 +1,33 @@
-Hey August rockstars! 🎉
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buttons Alignment</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-Okay, so we’re a bit late, but who says the party has to end?! 🎂 Sending you all the belated birthday hype! Whether you’re a bold Leo or a chill Virgo, your vibe is unmatched, and we’re here for it! 🙌
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 d-flex">
+      <!-- Left aligned button -->
+      <button type="button" class="btn btn-primary">Left Button</button>
 
-Hope your birthday was packed with fun, cake, and awesome memories. If not, guess what? You’ve got a second chance to party it up! 🎈
+      <!-- Spacing between buttons (this pushes the next buttons to the right) -->
+      <div class="me-auto"></div>
 
-Here’s to another year of living your best life – more laughs, more adventures, and ALL the good vibes! ✨
+      <!-- Right aligned buttons -->
+      <button type="button" class="btn btn-secondary me-2">Right Button 1</button>
+      <button type="button" class="btn btn-secondary me-2">Right Button 2</button>
+      <button type="button" class="btn btn-secondary">Right Button 3</button>
+    </div>
+  </div>
+</div>
 
-Keep slaying, August fam! 🎊
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
