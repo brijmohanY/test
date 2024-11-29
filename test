@@ -1,1 +1,11 @@
-https://jam.dev/c/8bbd9588-878a-4239-8691-94b2d2ef9756
+services.AddDbContext<MyDbContext>(options =>
+{
+    options.UseSqlServer(
+        "Data Source=ald-pl-akw-stg-we-sql.database.windows.net; Initial Catalog=refsdb; Integrated Security=False;",
+        sqlOptions => sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5, // Retry up to 5 times
+            maxRetryDelay: TimeSpan.FromSeconds(10), // Wait up to 10 seconds between retries
+            errorNumbersToAdd: null // Retry on all transient errors
+        )
+    );
+});
