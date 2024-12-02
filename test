@@ -1,11 +1,68 @@
-services.AddDbContext<MyDbContext>(options =>
-{
-    options.UseSqlServer(
-        "Data Source=ald-pl-akw-stg-we-sql.database.windows.net; Initial Catalog=refsdb; Integrated Security=False;",
-        sqlOptions => sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5, // Retry up to 5 times
-            maxRetryDelay: TimeSpan.FromSeconds(10), // Wait up to 10 seconds between retries
-            errorNumbersToAdd: null // Retry on all transient errors
-        )
-    );
-});
+private void updateOrrAuditStatus(OperationalRetentionRuleVO operationalRetentionRuleVO, OperationalRetentionRule existingEntity) {
+    OrrAuditStatus orrAuditStatus = new OrrAuditStatus();
+
+    orrAuditStatus.setOrrId(operationalRetentionRuleVO.getOperationalRetentionRuleId());
+    orrAuditStatus.setOrrVersion(operationalRetentionRuleVO.getOperationalRetentionRuleVersion());
+    orrAuditStatus.setStatusCode(operationalRetentionRuleVO.getStatus());
+    orrAuditStatus.setEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    orrAuditStatus.setCreationDate(new Date());
+
+    // Only for Validated or Committed statuses
+    if (OperationalRetentionRuleStatusCodeEnum.VALIDATED.equals(operationalRetentionRuleVO.getStatus()) || 
+        OperationalRetentionRuleStatusCodeEnum.COMMITTED.equals(operationalRetentionRuleVO.getStatus())) {
+
+        StringBuilder logEntry = new StringBuilder();
+
+        // Log Validator changes
+        appendMultiValuedField(logEntry, "Validator",
+            existingEntity.getOperationalRetentionRuleActorList().stream().map(OperationalRetentionRuleActor::getValidatorName).toList());
+
+        // Log Committer changes
+        appendMultiValuedField(logEntry, "Committer",
+            existingEntity.getOperationalRetentionRuleActorList().stream().map(OperationalRetentionRuleActor::getCommitterName).toList());
+
+        // Log single-valued field changes
+        appendField(logEntry, "Comment", existingEntity.getComment());
+        appendField(logEntry, "Periodicity", existingEntity.getPeriodicityOfDisposalApplicationPurge().name());
+        appendField(logEntry, "NRR Id", existingEntity.getRetentionPeriodValue());
+
+        // Log multi-valued fields (Entities, Activities, etc.)
+        appendMultiValuedField(logEntry, "Entities",
+            existingEntity.getOperationalRetentionRuleAndLegalEntity().stream().map(LegalEntity::getName).toList());
+
+        // Add other fields similarly (Activities, Record Locations, MP, etc.)
+
+        // Remove trailing separator
+        if (logEntry.length() > 0) {
+            logEntry.setLength(logEntry.length() - 4); // Remove last "::::"
+        }
+
+        // Set the log entry
+        orrAuditStatus.setLogEntry(logEntry.toString());
+    }
+
+    this.orrAuditStatusRepository.save(orrAuditStatus);
+}
+
+
+private void appendField(StringBuilder logEntry, String fieldName, Object oldValue) {
+    if (oldValue != null) {
+        logEntry.append(fieldName).append(" :: ")
+                .append(oldValue).append(" :::: ");
+    }
+}
+
+
+
+private void appendMultiValuedField(StringBuilder logEntry, String fieldName, List<String> oldValues) {
+    if (oldValues != null && !oldValues.isEmpty()) {
+        logEntry.append(fieldName).append(" :: ")
+                .append(String.join(", ", oldValues)).append(" :::: ");
+    }
+}
+
+
+
+
+
+
