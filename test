@@ -1,50 +1,71 @@
-private String buildLogEntry(OperationalRetentionRule existingEntity) {
+private String buildLogEntry(OperationalRetentionRule existingEntity, OperationalRetentionRuleVO vo) {
     StringBuilder logEntry = new StringBuilder();
 
-    // Append old values or just the field name
-    appendMultiValuedField(logEntry, "Validator",
+    // Always append field names, compare and append old/new values where needed
+    appendField(logEntry, "Validator", 
         existingEntity.getOperationalRetentionRuleActorList().stream()
                      .map(OperationalRetentionRuleActor::getValidatorName)
-                     .collect(Collectors.toList()));
+                     .collect(Collectors.toList()),
+        vo.getValidatorNames());
 
-    appendMultiValuedField(logEntry, "Committer",
+    appendField(logEntry, "Committer", 
         existingEntity.getOperationalRetentionRuleActorList().stream()
                      .map(OperationalRetentionRuleActor::getCommitterName)
-                     .collect(Collectors.toList()));
+                     .collect(Collectors.toList()),
+        vo.getCommitterNames());
 
-    appendField(logEntry, "Comment", existingEntity.getComment());
-    appendField(logEntry, "Periodicity", existingEntity.getPeriodicityOfDisposalApplicationPurge() != null
-            ? existingEntity.getPeriodicityOfDisposalApplicationPurge().name() : null);
-    appendField(logEntry, "NRR Id", existingEntity.getRetentionPeriodValue());
+    appendField(logEntry, "Comment", existingEntity.getComment(), vo.getComment());
+    appendField(logEntry, "Periodicity", 
+        existingEntity.getPeriodicityOfDisposalApplicationPurge() != null 
+            ? existingEntity.getPeriodicityOfDisposalApplicationPurge().name() 
+            : null, 
+        vo.getPeriodicityOfDisposalApplicationPurge());
 
-    appendMultiValuedField(logEntry, "Entities",
+    appendField(logEntry, "NRR Id", existingEntity.getRetentionPeriodValue(), vo.getRetentionPeriodValue());
+
+    appendField(logEntry, "Entities", 
         existingEntity.getOperationalRetentionRuleAndLegalEntity().stream()
                      .map(LegalEntity::getName)
-                     .collect(Collectors.toList()));
+                     .collect(Collectors.toList()), 
+        vo.getEntityNames());
 
     return logEntry.toString();
 }
 
-private void appendField(StringBuilder logEntry, String fieldName, Object oldValue) {
+private void appendField(StringBuilder logEntry, String fieldName, Object oldValue, Object newValue) {
     if (logEntry.length() > 0) {
         logEntry.append(":::: ");
     }
 
-    if (oldValue != null) {
-        logEntry.append(fieldName).append(" :: ").append(oldValue);
-    } else {
-        logEntry.append(fieldName); // Only the field name if no old value
+    // Always append the field name
+    logEntry.append(fieldName);
+
+    // Check if the value has changed and append the old/new values accordingly
+    if (oldValue != null && !oldValue.equals(newValue)) {
+        logEntry.append(" :: ").append(oldValue);
+    }
+
+    // If the value is the same, just append the `::::`
+    else {
+        logEntry.append(" ::::");
     }
 }
 
-private void appendMultiValuedField(StringBuilder logEntry, String fieldName, List<String> oldValues) {
+private void appendField(StringBuilder logEntry, String fieldName, List<String> oldValues, List<String> newValues) {
     if (logEntry.length() > 0) {
         logEntry.append(":::: ");
     }
 
-    if (oldValues != null && !oldValues.isEmpty()) {
-        logEntry.append(fieldName).append(" :: ").append(String.join(", ", oldValues));
-    } else {
-        logEntry.append(fieldName); // Only the field name if no old values
+    // Always append the field name
+    logEntry.append(fieldName);
+
+    // Check if the list values have changed and append the old/new values accordingly
+    if (oldValues != null && !oldValues.equals(newValues)) {
+        logEntry.append(" :: ").append(String.join(", ", oldValues));
+    }
+
+    // If the values are the same, just append `::::`
+    else {
+        logEntry.append(" ::::");
     }
 }
