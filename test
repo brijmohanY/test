@@ -1,17 +1,75 @@
+import java.util.HashMap;
+
 public class Main {
     public static void main(String[] args) {
         String input = "COMMENT:::: PERIODICITY_OF_DISPOSAL_APPLICATION_EN:: once a week:: PERIODICITY_OF_DISPOSAL APPLICATION_FR:::: ACTIVITY_L1_EN:::: ACTIVITY_LI_FR:::: ACTIVITY_L2_EN::::ACTIVITY_L2 _FR::::ACTIVITY_L3_EN::::ACTIVITY_L3_FR::::MACRO_PROCESS_EN::::MACRO_PROCESS_FR::::NRR_ID::::BUSU::::LEGAL_ENTITIES::::VALIDATOR::::COMMITTER::::";
 
-        // Split the string by ":::"
+        // Test the function for English
+        System.out.println(getValuesForLang(input, "EN"));
+
+        // Test the function for French
+        System.out.println(getValuesForLang(input, "FR"));
+    }
+
+    public static String getValuesForLang(String input, String lang) {
+        // Translation mapping
+        HashMap<String, String> translationsEN = new HashMap<>();
+        HashMap<String, String> translationsFR = new HashMap<>();
+
+        // Add translations for field names
+        translationsEN.put("PERIODICITY_OF_DISPOSAL_APPLICATION", "period");
+        translationsFR.put("PERIODICITY_OF_DISPOSAL_APPLICATION", "masque");
+
+        translationsEN.put("COMMENT", "comment");
+        translationsFR.put("COMMENT", "commentaire");
+
+        translationsEN.put("ACTIVITY_L1", "activity level 1");
+        translationsFR.put("ACTIVITY_L1", "niveau d'activité 1");
+
+        translationsEN.put("ACTIVITY_L2", "activity level 2");
+        translationsFR.put("ACTIVITY_L2", "niveau d'activité 2");
+
+        translationsEN.put("ACTIVITY_L3", "activity level 3");
+        translationsFR.put("ACTIVITY_L3", "niveau d'activité 3");
+
+        translationsEN.put("MACRO_PROCESS", "macro process");
+        translationsFR.put("MACRO_PROCESS", "macro processus");
+
+        // Split the input by ":::"
         String[] parts = input.split(":::");
 
+        // Store key-value pairs
+        HashMap<String, String> values = new HashMap<>();
         for (String part : parts) {
             String[] keyValue = part.split("::", 2);
             if (keyValue.length == 2) {
-                System.out.println(keyValue[1].trim()); // Print only the value
+                values.put(keyValue[0].trim(), keyValue[1].trim());
             } else {
-                System.out.println(""); // Print empty if no value
+                values.put(keyValue[0].trim(), "");
             }
         }
+
+        // Construct the result string
+        StringBuilder result = new StringBuilder();
+        for (String key : values.keySet()) {
+            if (key.endsWith("_" + lang)) {
+                String baseKey = key.replace("_" + lang, "").trim();
+                String translatedKey = lang.equals("EN")
+                        ? translationsEN.getOrDefault(baseKey, baseKey)
+                        : translationsFR.getOrDefault(baseKey, baseKey);
+                String value = values.get(key);
+
+                // Only print non-empty values
+                if (value != null && !value.isEmpty()) {
+                    if (lang.equals("EN")) {
+                        result.append("Old value of - ").append(translatedKey).append(": ").append(value).append("\n");
+                    } else if (lang.equals("FR")) {
+                        result.append("Ancienne valeur de - ").append(translatedKey).append(": ").append(value).append("\n");
+                    }
+                }
+            }
+        }
+
+        return result.toString().trim(); // Return the result
     }
 }
