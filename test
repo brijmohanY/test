@@ -1,37 +1,17 @@
-Here’s a polished and professional rephrased version of your comments:  
+public class Main {
+    public static void main(String[] args) {
+        String input = "COMMENT:::: PERIODICITY_OF_DISPOSAL_APPLICATION_EN:: once a week:: PERIODICITY_OF_DISPOSAL APPLICATION_FR:::: ACTIVITY_L1_EN:::: ACTIVITY_LI_FR:::: ACTIVITY_L2_EN::::ACTIVITY_L2 _FR::::ACTIVITY_L3_EN::::ACTIVITY_L3_FR::::MACRO_PROCESS_EN::::MACRO_PROCESS_FR::::NRR_ID::::BUSU::::LEGAL_ENTITIES::::VALIDATOR::::COMMITTER::::";
 
----
+        // Split the string by ":::"
+        String[] parts = input.split(":::");
 
-### **Participation in Innovation and CSR Activities:**  
-- Actively participated in **two CSR activities**:  
-  - **Cleaning drive and awareness session** conducted by my alumni group.  
-  - **Blood donation camp**, showcasing my commitment to social responsibility.  
-- Represented SG by participating in the **5k Run for Unity**, contributing to community engagement initiatives.  
-- **Led the implementation of Data Navigator** during the 24-hour hackathon *Texplore*. Designed the chatbot UI and backend features by studying APIs provided by SoGPT from scratch, demonstrating creativity and technical acumen.  
-- Participated in the **YG Hackathon** under the Cloud theme, where I utilized my expertise in **Azure** and **Python** to design a solution for automating the migration of Gen 2 infrastructure to Azure, collaborating with a cross-department YG team.  
-
----
-
-### **Contribution to OKRs and People Engagement:**  
-- Contributed to **OKR 4.5** by organizing people engagement events:  
-  - Created content for promotional flexes and birthday celebration edits.  
-  - Designed posts for birthday wishes shared on the Yammer page, enhancing team morale.  
-- Played an active role in **OKR 3.2 (IT Transformation)** by assisting teams with **Git Co-pilot onboarding**, ensuring a smooth transition to AI-powered development tools.  
-
----
-
-### **Technical Chapter Contributions:**  
-- Shared **two topics** in the technical chapter/tech talks as part of chapter initiatives, focusing on fixing Sonar issues for the UI.  
-- Participated in Leap training programs, including:  
-  - **Time Management**  
-  - **Breaking the Boundaries**  
-  - **Building Self-Confidence**  
-
----
-
-### **Learning and Development:**  
-- Completed all my learning trainings on time, demonstrating a commitment to continuous improvement and professional growth.  
-
----
-
-This revised version clearly outlines your contributions and impact, ensuring they stand out while emphasizing your technical, organizational, and team-building skills.
+        for (String part : parts) {
+            String[] keyValue = part.split("::", 2);
+            if (keyValue.length == 2) {
+                System.out.println(keyValue[1].trim()); // Print only the value
+            } else {
+                System.out.println(""); // Print empty if no value
+            }
+        }
+    }
+}
