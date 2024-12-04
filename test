@@ -1,14 +1,30 @@
-Here’s a polished version of your points to enhance clarity and professionalism:
+Here’s a refined and professional rephrasing of your comments to present them more effectively:
 
 ---
 
-### **a) Production Monitoring:**
+### **a) I contribute to maintaining and strengthening teamwork for better delivery:**
 
-- Played a key role in defining and enforcing an effective **branching and deployment strategy**, ensuring smooth and efficient development workflows.  
-- Ensured **zero incidents** on my deliveries by maintaining high standards of quality and reliability in every deployment.  
-- Successfully onboarded **Matomo** for web analytics in DRM, enhancing monitoring capabilities and providing valuable insights into application usage.  
-- Demonstrated proactive problem-solving by identifying a critical bug and delivering a hotfix within 24 hours, ensuring minimal disruption to end users.  
+- Successfully prepared and delivered **two structural design solutions**: **KEAR Update** and **Notification Centre**, contributing to improved functionality and team alignment.  
+- Conducted **three knowledge-sharing sessions**, fostering team collaboration and enabling skill development.  
+- Prioritized and resolved **three production bugs**, ensuring minimal disruption and maintaining service quality.  
 
 ---
 
-This refined version emphasizes your contributions to production monitoring and highlights your ability to deliver quality work with efficiency and reliability.
+### **b) I help strengthen the use of the JIRA Board:**
+
+- Optimized the use of **JIRA** to efficiently track tasks, clarifications, and progress, improving overall team productivity.  
+- Systematically documented **doubts and clarifications in ticket comments**, ensuring transparency and ease of understanding.  
+- Created well-defined **technical tasks and subtasks** with clear, actionable information, adhering to agile best practices.  
+
+---
+
+### **c) Testing Strategy and Best Practices:**
+
+- Initiated the implementation of **Behavior-Driven Development (BDD)** using **Cucumber** in the backend, setting a foundation for more robust testing practices.  
+- Began learning the **Jasmine framework** to strengthen front-end testing capabilities.  
+- Introduced a **Sonar quality gate** in the CI/CD pipeline, ensuring code quality before every merge. Automated this process through a Jenkins pipeline that triggers on pull requests, enhancing gatekeeping efficiency.  
+- Resolved a critical **infrastructure issue** related to certificates not being updated, leveraging knowledge gained from CI/CD training. This proactive resolution minimized potential disruptions and ensured seamless operations.  
+
+---
+
+This polished version emphasizes your impact, technical expertise, and contributions to team efficiency, quality improvement, and problem-solving.
