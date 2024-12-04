@@ -1,71 +1,31 @@
-private String buildLogEntry(OperationalRetentionRule existingEntity, OperationalRetentionRuleVO vo) {
-    StringBuilder logEntry = new StringBuilder();
+Here’s a polished and professional rephrased version of your points to strengthen your case for promotion:
 
-    // Always append field names, compare and append old/new values where needed
-    appendField(logEntry, "Validator", 
-        existingEntity.getOperationalRetentionRuleActorList().stream()
-                     .map(OperationalRetentionRuleActor::getValidatorName)
-                     .collect(Collectors.toList()),
-        vo.getValidatorNames());
+---
 
-    appendField(logEntry, "Committer", 
-        existingEntity.getOperationalRetentionRuleActorList().stream()
-                     .map(OperationalRetentionRuleActor::getCommitterName)
-                     .collect(Collectors.toList()),
-        vo.getCommitterNames());
+### **a) Image/Quality Impact:**
 
-    appendField(logEntry, "Comment", existingEntity.getComment(), vo.getComment());
-    appendField(logEntry, "Periodicity", 
-        existingEntity.getPeriodicityOfDisposalApplicationPurge() != null 
-            ? existingEntity.getPeriodicityOfDisposalApplicationPurge().name() 
-            : null, 
-        vo.getPeriodicityOfDisposalApplicationPurge());
+- Contributed significantly to the creation of detailed technical and functional documentation, ensuring clarity and ease of understanding.  
+- Consistently maintained 80% code coverage for all developments, aligning with quality standards.  
+- Deeply understood the functional aspects of various modules, enabling me to actively participate in refinements and provide valuable functional and technical suggestions. These inputs streamlined the implementation process, saving considerable time for the team.  
+- Proactively addressed and resolved three critical production issues, demonstrating a commitment to stability and reliability.  
 
-    appendField(logEntry, "NRR Id", existingEntity.getRetentionPeriodValue(), vo.getRetentionPeriodValue());
+---
 
-    appendField(logEntry, "Entities", 
-        existingEntity.getOperationalRetentionRuleAndLegalEntity().stream()
-                     .map(LegalEntity::getName)
-                     .collect(Collectors.toList()), 
-        vo.getEntityNames());
+### **b) Lead Time Impact/Reliability of Commitments:**
 
-    return logEntry.toString();
-}
+- Leveraged JIRA effectively to track tasks and enhance team efficiency and productivity.  
+- Created clear, concise, and well-documented technical tasks and subtasks within JIRA, ensuring alignment with the Definition of Ready (DoR) and Definition of Done (DoD).  
+- Successfully initiated and followed up on Unity tickets with cross-functional teams, including SEG, Eficass, Everest, and Network, ensuring timely resolution and collaboration.  
+- Supported external teams in onboarding to the DRM auto PR feature by resolving their issues and ensuring seamless integration.  
 
-private void appendField(StringBuilder logEntry, String fieldName, Object oldValue, Object newValue) {
-    if (logEntry.length() > 0) {
-        logEntry.append(":::: ");
-    }
+---
 
-    // Always append the field name
-    logEntry.append(fieldName);
+### **c) Contribution with Autonomy:**
 
-    // Check if the value has changed and append the old/new values accordingly
-    if (oldValue != null && !oldValue.equals(newValue)) {
-        logEntry.append(" :: ").append(oldValue);
-    }
+- Led the implementation of the **automatic KEAR update** feature, eliminating manual efforts and improving efficiency. Shared this knowledge in a technical chapter session, empowering the DgHub team to adopt a similar solution.  
+- Developed and finalized the **release process documentation**, bringing structure and clarity to release management.  
+- Proactively enhanced technical processes and workflows through automation and best practices, significantly improving efficiency and reducing manual efforts.  
 
-    // If the value is the same, just append the `::::`
-    else {
-        logEntry.append(" ::::");
-    }
-}
+---
 
-private void appendField(StringBuilder logEntry, String fieldName, List<String> oldValues, List<String> newValues) {
-    if (logEntry.length() > 0) {
-        logEntry.append(":::: ");
-    }
-
-    // Always append the field name
-    logEntry.append(fieldName);
-
-    // Check if the list values have changed and append the old/new values accordingly
-    if (oldValues != null && !oldValues.equals(newValues)) {
-        logEntry.append(" :: ").append(String.join(", ", oldValues));
-    }
-
-    // If the values are the same, just append `::::`
-    else {
-        logEntry.append(" ::::");
-    }
-}
+This version not only highlights your achievements but also emphasizes your leadership, impact, and ability to drive results—key attributes that can support your case for a promotion.
