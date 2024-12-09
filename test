@@ -1,72 +1,59 @@
-import java.util.HashMap;
+Here’s a more casual yet impactful pitch that subtly pushes for a promotion:
 
-public class Main {
-    public static void main(String[] args) {
-        String input = "COMMENT:::: PERIODICITY_OF_DISPOSAL_APPLICATION_EN:: once a week:: PERIODICITY_OF_DISPOSAL_APPLICATION_FR:::: ACTIVITY_L1_EN:::: ACTIVITY_L1_FR:::: ACTIVITY_L2_EN:::: ACTIVITY_L2_FR:::: ACTIVITY_L3_EN:::: ACTIVITY_L3_FR:::: MACRO_PROCESS_EN:::: MACRO_PROCESS_FR:::: NRR_ID:::: BUSU:::: LEGAL_ENTITIES:::: VALIDATOR:::: COMMITTER::::";
+---
 
-        // Test the function for English
-        System.out.println(getValuesForLang(input, "EN"));
+### **Performance Discussion Pitch**
 
-        // Test the function for French
-        System.out.println(getValuesForLang(input, "FR"));
-    }
+This year has been an exciting one, and I’ve made sure to consistently deliver high-quality results while contributing to innovation, collaboration, and growth. Here’s a quick summary of my key contributions:
 
-    public static String getValuesForLang(String input, String lang) {
-        // Translation mapping
-        HashMap<String, String> translationsEN = new HashMap<>();
-        HashMap<String, String> translationsFR = new HashMap<>();
+---
 
-        // Add translations for field names
-        translationsEN.put("PERIODICITY_OF_DISPOSAL_APPLICATION", "period");
-        translationsFR.put("PERIODICITY_OF_DISPOSAL_APPLICATION", "masque");
+### **1. Delivery and Quality**  
+- I’ve ensured **zero incidents** and **zero rollbacks** on my deliveries, prioritizing quality and reliability.  
+- Maintained **80% code coverage** and implemented better testing strategies, including starting **BDD with Cucumber** for the backend and learning **Jasmine** for UI tests.  
+- Automated the **Sonar quality gate** with a Jenkins pipeline that triggers on pull requests, raising our code quality standards.  
+- Solved critical infra issues, like certificate updates, using CI/CD skills, ensuring seamless deployments.  
 
-        translationsEN.put("COMMENT", "comment");
-        translationsFR.put("COMMENT", "commentaire");
+---
 
-        translationsEN.put("ACTIVITY_L1", "activity level 1");
-        translationsFR.put("ACTIVITY_L1", "niveau d'activité 1");
+### **2. Innovation and Problem Solving**  
+- Led two key solutions: **KEAR Update** and **Notification Centre**, significantly reducing manual efforts.  
+- Participated in *Texplore* hackathon, where I spearheaded the **Data Navigator** project, designing a chatbot UI and backend by integrating SoGPT APIs.  
+- At the **YG Hackathon**, I leveraged my Azure and Python expertise to create a solution for automating Gen 2 infra migrations.  
+- Played a role in IT transformation by helping onboard **Git Co-pilot**, pushing us toward more efficient development practices.  
 
-        translationsEN.put("ACTIVITY_L2", "activity level 2");
-        translationsFR.put("ACTIVITY_L2", "niveau d'activité 2");
+---
 
-        translationsEN.put("ACTIVITY_L3", "activity level 3");
-        translationsFR.put("ACTIVITY_L3", "niveau d'activité 3");
+### **3. Collaboration and Team Building**  
+- Hosted **three knowledge-sharing sessions** to boost collaboration and skill-building within the team.  
+- Contributed to **OKR 4.5 People Engagement** by organizing events, creating content for promotional materials, and keeping team morale high with birthday celebration edits and Yammer posts.  
+- Strengthened collaboration by defining and enforcing **branching and deployment strategies** for smoother workflows.  
 
-        translationsEN.put("MACRO_PROCESS", "macro process");
-        translationsFR.put("MACRO_PROCESS", "macro processus");
+---
 
-        // Split the input by "::"
-        String[] parts = input.split("::");
+### **4. Agile Practices and JIRA**  
+- Made JIRA work more efficiently for the team by creating well-defined tickets, documenting progress clearly, and adding regular updates.  
+- Ensured agile best practices, like proper ticket slicing and meaningful contributions during ceremonies, were followed consistently.  
 
-        // Store key-value pairs
-        HashMap<String, String> values = new HashMap<>();
-        for (int i = 0; i < parts.length - 1; i++) {
-            String key = parts[i].trim();
-            String value = parts[i + 1].contains("::") ? "" : parts[i + 1].trim();
-            values.put(key, value);
-        }
+---
 
-        // Construct the result string
-        StringBuilder result = new StringBuilder();
-        for (String key : values.keySet()) {
-            if (key.endsWith("_" + lang)) {
-                String baseKey = key.replace("_" + lang, "").trim();
-                String translatedKey = lang.equals("EN")
-                        ? translationsEN.getOrDefault(baseKey, baseKey)
-                        : translationsFR.getOrDefault(baseKey, baseKey);
-                String value = values.get(key);
+### **5. CSR and Community Engagement**  
+- Participated in **two CSR activities**: a cleaning drive and awareness session, and a blood donation camp.  
+- Represented SG in the **5k Run for Unity** and helped organize a CSR event for YGS through LEAP.  
 
-                // Only print non-empty values
-                if (value != null && !value.isEmpty()) {
-                    if (lang.equals("EN")) {
-                        result.append("Old value of - ").append(translatedKey).append(": ").append(value).append("\n");
-                    } else if (lang.equals("FR")) {
-                        result.append("Ancienne valeur de - ").append(translatedKey).append(": ").append(value).append("\n");
-                    }
-                }
-            }
-        }
+---
 
-        return result.toString().trim(); // Return the result
-    }
-}
+### **6. Learning and Development**  
+- Completed multiple trainings, including **Time Management**, **Breaking the Boundaries**, and **Building Self-Confidence** under LEAP.  
+- Shared knowledge through **two tech talks** and contributed to technical chapters by addressing Sonar issues.  
+
+---
+
+### **Why a Promotion?**  
+Looking at these contributions, I believe I’ve not only met but exceeded expectations. I’ve taken on responsibilities beyond my core role, driven technical improvements, and played a key part in innovation and team growth.  
+
+I’m ready to step into a larger role where I can drive even more impact and take on greater challenges. A promotion would give me the opportunity to continue pushing boundaries, leading initiatives, and contributing to our success on a bigger scale.
+
+---
+
+This version strikes a balance between being professional and approachable, while confidently positioning yourself as ready for the next step in your career.
